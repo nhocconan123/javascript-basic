@@ -33,7 +33,7 @@
             }
             if (this.readyState === 4 && xhttp.status != 200) {
               // callback("something wrongs", undefined);
-              reject("something wrongs");
+              reject("something wrongs: with id" + id);
             }
           };
           xhttp.open(
@@ -44,13 +44,35 @@
           xhttp.send();
         });
       }
+
       getTodo(1)
-        .then((data) => {
-          console.log("get data:", data);
+        .then((data1) => {
+          console.log("get data:", data1);
+
+          return getTodo(2);
+        })
+        .then((data2) => {
+          console.log(">>get data 2:", data2);
+          return getTodo(3);
+        })
+        .then((data3) => {
+          console.log(">>get data 2:", data3);
         })
         .catch((err) => {
           console.log(">>waring somthing ", err);
         });
+
+      // getTodo(1)
+      //   .then((data) => {
+      //     console.log("get data:", data);
+
+      //     getTodo(2).then((data) => {
+      //       console.log("get data:", data);
+      //     });
+      //   })
+      //   .catch((err) => {
+      //     console.log(">>waring somthing ", err);
+      //   });
       // getTodo(1, (error, data) => {
       //   if (error) {
       //     console.log("calling callback with error", error);
